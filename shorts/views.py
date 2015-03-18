@@ -27,7 +27,7 @@ class HomeView(FormView):
         content = loads(data.content)
 
         condition = content.get('query').get('results').get('channel').get('item').get('condition')
-        temperature = condition.get('temp')
+        temperature = int(condition.get('temp'))
 
         if temperature >= 65:
             result = 'Yeah, homie!'
