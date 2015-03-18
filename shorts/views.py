@@ -29,10 +29,17 @@ class HomeView(FormView):
         condition = content.get('query').get('results').get('channel').get('item').get('condition')
         temperature = condition.get('temp')
 
+        if temperature >= 65:
+            result = 'Yeah, homie!'
+        elif 50 <= temperature <= 64:
+            result = 'Maybe, baby.'
+        else:
+            result = 'Nope.'
+
         context = super(HomeView, self).get_context_data()
         context['form'] = form
         context['results'] = {
-            'result': 'YES!' if int(temperature) >= 65 else 'No.',
+            'result': result,
             'location': location,
             'temperature': temperature,
             'condition': condition.get('text'),
