@@ -17,6 +17,9 @@ class HomeView(FormView):
 
         location = form.cleaned_data.get('location')
 
+        context = super(HomeView, self).get_context_data()
+        context['form'] = form
+
         # Let's get the shit
         base_url = "https://query.yahooapis.com/v1/public/yql?"
         yql_query = "select item.condition from weather.forecast where woeid in " \
@@ -26,8 +29,13 @@ class HomeView(FormView):
         data = requests.get(yql_url)
         content = loads(data.content)
 
-        condition = content.get('query').get('results').get('channel').get('item').get('condition')
-        temperature = int(condition.get('temp'))
+        try:
+            conditions = content.get('query').get('results').get('channel').get('item').get('condition')
+            temperature = int(conditions.get('temp'))
+            condition = conditions.get('text')
+        except AttributeError:
+            context['error'] = "Does that place exist?"
+            return self.render_to_response(context)
 
         if temperature >= 65:
             result = 'Yeah, homie!'
@@ -36,13 +44,11 @@ class HomeView(FormView):
         else:
             result = 'Nope.'
 
-        context = super(HomeView, self).get_context_data()
-        context['form'] = form
         context['results'] = {
             'result': result,
             'location': location,
             'temperature': temperature,
-            'condition': condition.get('text'),
+            'condition': condition,
         }
 
         return self.render_to_response(context)
