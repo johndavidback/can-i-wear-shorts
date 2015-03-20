@@ -1,3 +1,4 @@
+{% load i18n %}
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -24,11 +25,11 @@
         <form method="post" action="{% url 'home' %}">
             {% csrf_token %}
             <div class="form-group">
-                <label for="id_location">Where are you?</label>
+                <label for="id_location">{% trans "Where are you?" %}</label>
                 {{ form.location }}
             </div>
 
-            <button type="submit" class="btn btn-primary">Well, Can I?</button>
+            <button type="submit" class="btn btn-primary">{% trans "Well, Can I?" %}</button>
         </form>
 
         {% if error %}
