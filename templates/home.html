@@ -27,33 +27,39 @@
 <body>
 
     <div class="container text-center">
-        <h1>Can I wear shorts?</h1>
+        <div class="row">
 
-        <form method="get" action="{% url 'home' %}">
-            <div class="form-group">
-                <label for="id_location">{% trans "Where are you?" %}</label>
-                {{ form.location }}
-            </div>
+        <div class="col-md-12">
+            <h1>Can I wear shorts?</h1>
 
-            <button type="submit" class="btn btn-primary">{% trans "Well, Can I?" %}</button>
-        </form>
+            <form method="get" action="{% url 'home' %}">
+                <div class="form-group">
+                    <label for="id_location">{% trans "Where are you?" %}</label>
+                    {{ form.location }}
+                </div>
 
-        {% if error %}
-            <h2>{{ error }}</h2>
-        {% endif %}
+                <button type="submit" class="btn btn-primary">{% trans "Well, Can I?" %}</button>
+            </form>
 
-        {% if results %}
-            <h1 style="font-size: 70px">{{ results.result }}</h1>
+            {% if error %}
+                <h2>{{ error }}</h2>
+            {% endif %}
 
-            <hr>
-            <div class="panel panel-default">
-            <h1>{{ results.location }}</h1>
-            <h3>Temp: {{ results.temperature }}&deg; F</h3>
-            <h3>Condition: {{ results.condition }}</h3>
-            </div>
+            {% if results %}
+                <h1 style="font-size: 70px">{{ results.result }}</h1>
 
-        {% endif %}
+                <hr>
+                <div class="panel panel-default">
+                <h1>{{ results.location }}</h1>
+                <h3>Temp: {{ results.temperature }}&deg; F</h3>
+                <h3>Condition: {{ results.condition }}</h3>
+                </div>
 
+            {% endif %}
+
+        </div>
+
+        </div>
     </div>
 
     <footer class="footer text-center">
