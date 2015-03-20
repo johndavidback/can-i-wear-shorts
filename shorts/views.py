@@ -1,11 +1,11 @@
-from django.views.generic import FormView
-from django.core.urlresolvers import reverse_lazy
-from django.http import HttpResponse
-
-from .forms import SearchForm
-import requests
 import urllib
 from json import loads
+
+from django.views.generic import FormView
+from django.core.urlresolvers import reverse_lazy
+import requests
+
+from .forms import SearchForm
 
 
 class HomeView(FormView):
