@@ -6,6 +6,29 @@ from django.core.urlresolvers import reverse_lazy
 import requests
 
 from .forms import SearchForm
+from random import choice
+
+
+YES = [
+    'Hell yeah!',
+    'Si',
+    'Yeah, homie',
+    'Fo sho',
+    'Aye, aye, cap\'n',
+    'Hey girl, you wear them shorts',
+    'Totes',
+    'Duh.'
+]
+
+NO = [
+    'Hell no.',
+    'Not a good idea.',
+    'How about no.',
+    'No way, Jose.',
+    'Nein.',
+    'Uhhh no.',
+    'Nah, G.'
+]
 
 
 class HomeView(FormView):
@@ -13,12 +36,27 @@ class HomeView(FormView):
     form_class = SearchForm
     success_url = reverse_lazy('home')
 
+    def get(self, request, *args, **kwargs):
+        form = self.get_form_class()(self.request.GET or None)
+
+        if form.is_valid():
+            return self.process_form(form)
+
+        else:
+            context = super(HomeView, self).get_context_data(**kwargs)
+            context['form'] = form
+
+            return self.render_to_response(context)
+
     def form_valid(self, form):
 
-        location = form.cleaned_data.get('location')
+        self.process_form(form)
 
+    def process_form(self, form):
         context = super(HomeView, self).get_context_data()
         context['form'] = form
+
+        location = form.cleaned_data.get('location')
 
         # Let's get the shit
         base_url = "https://query.yahooapis.com/v1/public/yql?"
@@ -38,11 +76,11 @@ class HomeView(FormView):
             return self.render_to_response(context)
 
         if temperature >= 65:
-            result = 'Yeah, homie!'
+            result = choice(YES)
         elif 50 <= temperature <= 64:
             result = 'Maybe, baby.'
         else:
-            result = 'Nope.'
+            result = choice(NO)
 
         context['results'] = {
             'result': result,

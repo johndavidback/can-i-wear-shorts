@@ -22,8 +22,7 @@
     <div class="container text-center">
         <h1>Can I wear shorts?</h1>
 
-        <form method="post" action="{% url 'home' %}">
-            {% csrf_token %}
+        <form method="get" action="{% url 'home' %}">
             <div class="form-group">
                 <label for="id_location">{% trans "Where are you?" %}</label>
                 {{ form.location }}
