@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+BASE_URL = 'http://caniwearshorts.today'
 
 
 # Quick-start development settings - unsuitable for production
@@ -24,7 +25,7 @@ DEBUG = False
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['.caniwearshorts.today', 'shorts.johndavidback.com']
 
 
 # Application definition
@@ -87,6 +88,7 @@ LOCALE_PATHS = (
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 try:
     from local_settings import *

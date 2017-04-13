@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load staticfiles %}
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -9,6 +10,7 @@
 
     <!-- OG. Original Gangster. -->
     <meta property="og:url" content="http://caniwearshorts.today">
+    <meta property="og:image" content="{{ BASE_URL }}{% static "images/shorts.jpg" %}">
     <meta property="og:title" content="Can I Wear Shorts Today{% if results %} in {{ results.location }}{% endif %}?">
     <meta property="og:site_name" content="Can I Wear Shorts?"/>
     <meta property="og:description" content="Should you wear shorts today? Let's find out. If the weather is just right in your city, we'll give you the go ahead. Otherwise, act like a grownup. Wear pants.">

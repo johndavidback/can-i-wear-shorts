@@ -4,6 +4,7 @@ from json import loads
 from django.views.generic import FormView
 from django.core.urlresolvers import reverse_lazy
 import requests
+from django.conf import settings
 
 from .forms import SearchForm
 from random import choice
@@ -45,6 +46,7 @@ class HomeView(FormView):
         else:
             context = super(HomeView, self).get_context_data(**kwargs)
             context['form'] = form
+            context['BASE_URL'] = settings.BASE_URL
 
             return self.render_to_response(context)
 
