@@ -91,4 +91,6 @@ class HomeView(FormView):
             'condition': condition,
         }
 
+        context['BASE_URL'] = settings.BASE_URL
+
         return self.render_to_response(context)
